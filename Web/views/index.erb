@@ -1,0 +1,31 @@
+<div id="temp" class="reading"></div>
+<div id="light" class="reading"></div>
+<div id="message"></div>
+
+<script type="text/javascript">
+	var delay_time = 5;
+	
+	$(function(){
+		get_readings();
+		window.setInterval(function(){get_readings()}, delay_time * 1000);
+	});
+	
+	function get_readings(){
+		$.ajax({
+			url: "/readings",
+			success: function(response){
+				try{
+					readings = JSON.parse(response);
+					$("#temp").html(readings["temp"]);
+					$("#light").html(readings["light"]);
+					$("#message").html("Last reading was: " + readings["readings_time"]);
+				}catch(err){
+					//Display an error message
+					$("#message").html("Could not parse the response");
+				}
+			}, error: function(){
+				$("#message").html("Could not connect to the server");
+			}
+		});
+	}
+</script>
