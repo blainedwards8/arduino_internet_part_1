@@ -15,13 +15,15 @@
 			url: "/readings",
 			success: function(response){
 				try{
-					readings = JSON.parse(response);
+					//readings = JSON.parse(response);
+					readings = response;
 					$("#temp").html(readings["temp"]);
 					$("#light").html(readings["light"]);
 					$("#message").html("Last reading was: " + readings["readings_time"]);
 				}catch(err){
+				
 					//Display an error message
-					$("#message").html("Could not parse the response");
+					//$("#message").html("Could not parse the response. " + err);
 				}
 			}, error: function(){
 				$("#message").html("Could not connect to the server");

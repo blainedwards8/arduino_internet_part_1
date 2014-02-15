@@ -19,13 +19,13 @@ get "/readings" do
 	content_type :json
 	
 	#collect the readings from the Redis Server
-	#expanded for demonstration
+	get_readings
+end
+
+def get_readings
 	readings = {}
 	readings[:temp] = @@redis.get("temp")
 	readings[:light] = @@redis.get("light")
 	readings[:readings_time] = Time.now
 	readings.to_json
-	
-	#minimized version
-	#{temp: @@redis.get("temp"), light: @@redis.get("light"), readings_time: Time.now}.to_json
 end
